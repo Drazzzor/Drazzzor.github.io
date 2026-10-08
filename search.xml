@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C语言入门：从指针卡住到慢慢想明白</title>
+    <title>C语言入门</title>
     <url>/2023/06/01/c-language-basics/</url>
-    <content><![CDATA[<h2 id="为什么第一门课是-C"><a href="#为什么第一门课是-C" class="headerlink" title="为什么第一门课是 C"></a>为什么第一门课是 C</h2><p>大一上学期开的是 C 语言。老师给的理由很直接：先把内存这件事搞清楚，后面学什么都省力。当时我不太信，现在回头看，这句话是对的。</p>
-<p>C 语言没有太多语法糖，写出来短小，但要求你知道每一行到底在干什么。</p>
-<h2 id="第一个坎：编译和运行是两件事"><a href="#第一个坎：编译和运行是两件事" class="headerlink" title="第一个坎：编译和运行是两件事"></a>第一个坎：编译和运行是两件事</h2><p>最开始的困惑不在语法，而在流程。写一个 <code>.c</code> 文件，它不能直接双击运行，得先编译：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gcc hello.c -o hello</span><br><span class="line">./hello</span><br></pre></td></tr></table></figure>
-
-<p>我第一次写错是在文件名上，把 <code>hello.c</code> 存成了 <code>hello.c.txt</code>，编译报错说找不到文件，我盯着屏幕找了半小时。后来学会了先 <code>ls</code> 一下，确认文件真的在那儿。</p>
-<h2 id="第二个坎：指针"><a href="#第二个坎：指针" class="headerlink" title="第二个坎：指针"></a>第二个坎：指针</h2><p>指针大概是劝退最多人的地方。我卡了整整两周。</p>
+    <content><![CDATA[<h2 id="接触的第一门语言是-C"><a href="#接触的第一门语言是-C" class="headerlink" title="接触的第一门语言是 C"></a>接触的第一门语言是 C</h2><p>大一上学期开的是 C 语言。</p>
+<p>C 语言是面向过程的，对初学者了解算法的细节比较友好，而且没有太多语法糖，要求编程者知道每一行到底在干什么。</p>
+<h2 id="第一个坎：指针"><a href="#第一个坎：指针" class="headerlink" title="第一个坎：指针"></a>第一个坎：指针</h2><p>指针大概是劝退最多人的地方。卡了我整整一天。</p>
 <p>真正让我想通的是一句话：<strong>指针是一个变量，这个变量里存的是地址。</strong> 就这么简单，之前我一直把它当成某种神秘的符号。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="type">int</span> *p = &amp;a;   <span class="comment">// p 存的是 a 的地址</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, *p);  <span class="comment">// *p 就是取出那个地址上的值，输出 10</span></span><br></pre></td></tr></table></figure>
 
-<p><code>&amp;</code> 是取地址，<code>*</code> 是按地址取值。这两个符号在一开始总被我搞反。我的办法是在纸上画内存格子：一边写变量名，一边写地址，一边写值，画上十几次之后手就有感觉了。</p>
+<p><code>&amp;</code> 是取地址，<code>*</code> 是按地址取值。这两个符号在一开始总被我搞反。在纸上画内存格子、画箭头，有了可视化的图示，再看代码就有感觉了。</p>
 <h2 id="第三个坎：数组和字符串"><a href="#第三个坎：数组和字符串" class="headerlink" title="第三个坎：数组和字符串"></a>第三个坎：数组和字符串</h2><p>C 里的字符串其实是字符数组，以 <code>\0</code> 结尾。这个设计让很多事情变得需要小心。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> s[] = <span class="string">&quot;abc&quot;</span>;   <span class="comment">// 实际占 4 个字节：a b c \0</span></span><br></pre></td></tr></table></figure>
 
-<p><code>sizeof(s)</code> 会得到 4 而不是 3，原因就在这个结尾符。我一开始照着别的语言的直觉写，怎么算都对不上，后来才明白要多算一位。</p>
-<p>还有一个常见的坑是数组越界。C 不会替你检查，写超了也照常运行，只是可能改到别的内存，然后在完全无关的地方报错。这种 bug 找起来最费时间，所以现在我写完循环一定要看一眼边界条件。</p>
+<p>还有一个常见的坑是数组越界。C 不会检查，写超了也照常运行，只是可能改到别的内存，然后在完全无关的地方报错。这种 bug 找起来最费时间，所以现在我写完循环一定要看一眼边界条件。</p>
 <h2 id="一点经验"><a href="#一点经验" class="headerlink" title="一点经验"></a>一点经验</h2><ul>
-<li><strong>编译器的报错要读完</strong>。C 的报错信息比较详细，行号和原因都有，比瞎猜快得多。</li>
-<li><strong>小步运行</strong>。不要一次写两百行再编译，写十行就跑一次。</li>
+<li><strong>要会读报错</strong>。C 的报错信息比较详细，行号和原因都有。</li>
+<li><strong>要会打断点调试</strong>。打断点配合单步调试能准确把握代码的运行逻辑。</li>
 <li><strong>画内存图</strong>。指针和数组这类东西，纸上画一遍胜过盯着代码看十遍。</li>
 </ul>
-<p>现在我用别的语言时，遇到内存相关的问题还会想起这门课。C 教给我的与其说是语法，不如说是”知道机器在做什么”的习惯。</p>
 ]]></content>
       <categories>
         <category>编程学习</category>
@@ -54,31 +48,30 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Java初学：被环境配置绊了一个星期</title>
+    <title>Java初学</title>
     <url>/2023/08/05/java-basics/</url>
-    <content><![CDATA[<h2 id="开头就卡住了"><a href="#开头就卡住了" class="headerlink" title="开头就卡住了"></a>开头就卡住了</h2><p>学完 C 之后转向 Java，我原以为会轻松一些，结果第一周全花在环境配置上。</p>
-<p>Java 的运行需要 JDK。我下载完装好，命令行敲 <code>java -version</code> 却提示找不到命令。查了很久才知道要配环境变量：<code>JAVA_HOME</code> 指向安装目录，再把 <code>%JAVA_HOME%\bin</code> 加进 <code>PATH</code>。</p>
+    <content><![CDATA[<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>学完 C 之后转向 Java，虽然语法逻辑有诸多相像，但Java运行还要先配置环境。</p>
+<p>Java 的运行需要 JDK。我下载完装好，命令行敲 <code>java -version</code> 提示找不到命令。搜了才知道要配环境变量：<code>JAVA_HOME</code> 指向安装目录，再把 <code>%JAVA_HOME%\bin</code> 加进 <code>PATH</code>。</p>
 <p>配置大概是这样：</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">JAVA_HOME = C:\Program Files\Java\jdk-17</span><br><span class="line">PATH      = %JAVA_HOME%\bin;其他原有内容</span><br></pre></td></tr></table></figure>
 
-<p>配好之后重启命令行才生效。这个细节当时没人告诉我，我反复敲命令反复失败，一度怀疑是装错了版本。</p>
-<h2 id="从-C-到-Java-的落差"><a href="#从-C-到-Java-的落差" class="headerlink" title="从 C 到 Java 的落差"></a>从 C 到 Java 的落差</h2><p>第一节课写的是这个：</p>
+<p>配好之后重启命令行才生效。</p>
+<h2 id="C-和-Java-的差别"><a href="#C-和-Java-的差别" class="headerlink" title="C 和 Java 的差别"></a>C 和 Java 的差别</h2><p>第一节课写的是这个：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>一个简单的输出，外面套了这么多层。当时我的疑问是：<code>public</code> 是什么，<code>static</code> 是什么，为什么类名和文件名必须一样。</p>
 <p>老师的回答是可以先照着写，后面会讲。老实说我照着写了一段时间之后才慢慢理解：Java 的一切都装在类里，<code>main</code> 是程序的入口，<code>static</code> 表示它不需要先创建对象就能运行。</p>
-<h2 id="面向对象：观念上的转变"><a href="#面向对象：观念上的转变" class="headerlink" title="面向对象：观念上的转变"></a>面向对象：观念上的转变</h2><p>真正让我不适应的是面向对象的写法。</p>
-<p>在 C 里，数据和处理数据的函数是分开的；在 Java 里，它们被装进同一个类。</p>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>在 C 里，数据和处理数据的函数是分开的；在 Java 里，它们被装进同一个类。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="type">public</span> <span class="title function_">Student</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">void</span> <span class="title function_">sayHello</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是 &quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><code>this</code> 这个关键字我一开始总忘，然后就出现参数和成员变量同名、赋值没有生效的情况。这类错误编译器不报，只是结果不对，找起来费劲。</p>
 <h2 id="几个具体收获"><a href="#几个具体收获" class="headerlink" title="几个具体收获"></a>几个具体收获</h2><ul>
 <li><strong>文件名必须和 public 类名一致</strong>。不一致直接编译不过，这一点 Java 比 C 严格。</li>
-<li><strong>字符串用 <code>equals</code> 比较</strong>。用 <code>==</code> 比的是地址而不是内容，我在这里错过一次，两个看着一样的字符串判等得到 <code>false</code>，当时完全懵了。</li>
-<li><strong>数组越界会抛异常</strong>。这比 C 友好，至少程序会明确告诉你哪里出错了，而不是默默改坏别的内存。</li>
+<li><strong>字符串用 <code>equals</code> 比较</strong>。用 <code>==</code> 比的是地址而不是内容。</li>
+<li><strong>数组越界会抛异常</strong>。这比 C 友好，至少程序会明确告诉你哪里出错。</li>
 </ul>
-<h2 id="一点体会"><a href="#一点体会" class="headerlink" title="一点体会"></a>一点体会</h2><p>Java 的代码比 C 长，写起来啰嗦，但换来的是更少的低级错误。它把很多容易出问题的地方交给了编译器和虚拟机去管。</p>
-<p>环境配置那一周的挫败感现在想起来还有点印象。但也正因为栽过，后来帮同学配环境时我能一眼看出是 <code>PATH</code> 没生效。初学阶段的时间，大概都花在这种地方。</p>
+<h2 id="一点体会"><a href="#一点体会" class="headerlink" title="一点体会"></a>一点体会</h2><p>面向对象的思想就像是指挥某人去做某事。</p>
+<p>Java 的代码比 C 长，写起来啰嗦，但换来的是更少的低级错误。编译器和虚拟机处理了很多问题。</p>
+<p>Java的类库真的丰富。</p>
 ]]></content>
       <categories>
         <category>编程学习</category>
@@ -90,7 +83,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Python初学：最舒服的一门，也有它的坑</title>
+    <title>Python初学</title>
     <url>/2023/08/17/python-basics/</url>
     <content><![CDATA[<h2 id="上手最快的一次"><a href="#上手最快的一次" class="headerlink" title="上手最快的一次"></a>上手最快的一次</h2><p>学完 C 和 Java 再碰 Python，第一个感觉是轻松。</p>
 <p>同样输出一句话，Python 只要一行：</p>
@@ -98,14 +91,13 @@
 
 <p>没有类，没有分号，没有类型声明，也不用先编译。写一个 <code>.py</code> 文件，命令行 <code>python hello.py</code> 就能跑。</p>
 <p>这种轻快感对我这种刚开始学的人来说很重要，它让注意力能放在解决问题上，而不是放在语法规定上。</p>
-<h2 id="缩进是语法"><a href="#缩进是语法" class="headerlink" title="缩进是语法"></a>缩进是语法</h2><p>Python 用缩进表示代码块，这让写惯了花括号的我很不习惯。</p>
+<h2 id="缩进是语法"><a href="#缩进是语法" class="headerlink" title="缩进是语法"></a>缩进是语法</h2><p>Python 用缩进表示代码块，这让之前写惯了花括号的我觉得很清爽。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> score &gt;= <span class="number">60</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;及格&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;不及格&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>缩进错了程序要么报错要么逻辑不对。我踩过的坑是把 Tab 和空格混用，肉眼看不出区别，运行时却报错。后来我在编辑器里设成”Tab 自动转 4 个空格”，这类问题就没再出现。</p>
 <h2 id="动态类型的两面"><a href="#动态类型的两面" class="headerlink" title="动态类型的两面"></a>动态类型的两面</h2><p>Python 的变量不需要声明类型：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = <span class="number">10</span></span><br><span class="line">a = <span class="string">&quot;现在是字符串&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>这很灵活，但也埋着问题。有一次我写了一个累加，中间混进了一个字符串，运行到一半才报错，而不是在写的时候就提示。C 和 Java 会在编译阶段拦住这类错误，Python 不会。</p>
+<p>这很灵活，但也埋着问题。有一次我写了一个累加，中间混进了一个字符串。C 和 Java 会在编译阶段拦住这类错误，Python 不会。</p>
 <p>所以现在我在关键的地方会加一句检查：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">isinstance</span>(value, (<span class="built_in">int</span>, <span class="built_in">float</span>)):</span><br><span class="line">    <span class="keyword">raise</span> TypeError(<span class="string">&quot;需要数字&quot;</span>)</span><br></pre></td></tr></table></figure>
 
@@ -114,13 +106,12 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">names = [<span class="string">&quot;张三&quot;</span>, <span class="string">&quot;李四&quot;</span>, <span class="string">&quot;王五&quot;</span>]</span><br><span class="line">info = &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;张三&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">20</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> names:</span><br><span class="line">    <span class="built_in">print</span>(n)</span><br></pre></td></tr></table></figure>
 
 <p>在 C 里写这些要自己管长度和内存，Java 里要写不少样板代码，Python 直接就能用。切片也很方便，<code>names[1:]</code> 就能取后半段。</p>
-<h2 id="几个踩过的细节"><a href="#几个踩过的细节" class="headerlink" title="几个踩过的细节"></a>几个踩过的细节</h2><ul>
+<h2 id="几个收获"><a href="#几个收获" class="headerlink" title="几个收获"></a>几个收获</h2><ul>
 <li><strong>可变对象做默认参数会出问题</strong>。<code>def f(x=[])</code> 里的列表是所有调用共享的，会一直累积。要用 <code>None</code> 再在函数里判断。</li>
-<li><strong><code>=</code> 和 <code>==</code> 别写错</strong>。Python 里 <code>=</code> 赋值、<code>==</code> 比较，写错的话不一定报错，可能只是逻辑悄悄变了。</li>
-<li><strong>尽量用虚拟环境</strong>。<code>python -m venv venv</code> 建一个独立环境，避免不同项目的包互相干扰。我一开始都装在全局，后来装了新版本的库，旧项目就跑不起来了。</li>
+<li><strong>尽量隔离环境</strong>。<code>python -m venv venv</code> 建一个独立环境，避免不同项目的包互相干扰。我一开始都装在全局，后来装了新版本的库，旧项目就跑不起来了。后面发现了conda这个好东西。</li>
 </ul>
-<h2 id="最后一点想法"><a href="#最后一点想法" class="headerlink" title="最后一点想法"></a>最后一点想法</h2><p>三门语言学下来，我的感受是：C 让人知道底层在做什么，Java 让人养成规范的工程习惯，Python 让人把想法快速变成能跑的东西。</p>
-<p>初学阶段纠结”该学哪门”其实意义不大，先挑一门写起来，比什么都强。真正难的地方不在语法，而在于把一个问题拆成可以一步步执行的步骤——这一点哪门语言都帮不上忙。</p>
+<h2 id="最后一点想法"><a href="#最后一点想法" class="headerlink" title="最后一点想法"></a>最后一点想法</h2><p>三门语言学下来，C 让人知道底层在做什么，Java 让人养成规范的工程习惯，Python 让人把想法快速变成能跑的东西。</p>
+<p>相比于C，Java和Python的类库是真多，不用重头造轮子是真方便。</p>
 ]]></content>
       <categories>
         <category>编程学习</category>
