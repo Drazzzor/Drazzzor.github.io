@@ -1,0 +1,12 @@
+# 依赖与构建产物（源码在 _source/，构建依赖不入库）
+node_modules/
+_source/node_modules/
+_source/public/
+_source/db.json
+_source/.deploy_git/
+_source/.hexo/
+
+# 系统文件
+Thumbs.db
+Desktop.ini
+.DS_Store

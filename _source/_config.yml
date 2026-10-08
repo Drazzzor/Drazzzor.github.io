@@ -1,0 +1,101 @@
+# Hexo 配置 —— Drazor 的博客
+# 重建自 drazzzor.github.io（原站 Hexo 5.4.2，此处升级到 7.x）
+
+## 站点
+title: Drazor
+subtitle: ''
+description: '这里是我的博客，记录学习和生活。'
+keywords:
+author: Drazor
+language: zh-CN
+timezone: 'Asia/Shanghai'
+
+## 网址
+url: https://drazzzor.github.io
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true
+  trailing_html: true
+
+## 目录
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+## 写作
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+highlight:
+  line_number: true
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  preprocess: true
+  line_number: true
+  tab_replace: ''
+
+## 首页
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+default_category: uncategorized
+category_map:
+tag_map:
+
+## 元数据
+meta_generator: true
+
+## 日期 / 时间
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+updated_option: 'mtime'
+
+## 分页
+per_page: 10
+pagination_dir: page
+
+## 本地搜索（Butterfly 主题依赖此配置生成 search.xml）
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
+
+## 站点地图
+sitemap:
+  path: sitemap.xml
+
+## RSS 订阅
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+## 扩展
+theme: butterfly
+
+## 部署：由 GitHub Actions 构建并发布到 main 分支
+deploy:
+  type: ''
